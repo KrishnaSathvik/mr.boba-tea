@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Mr. Boba Tea — Khammam's First Bubble Tea Experience</title>
+  <meta name="description"
+    content="Premium bubble tea made with real full cream milk, fresh brewed tea, and 23 exciting flavors. Khammam's first and only boba shop on Wyra Road.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Quicksand:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <!-- Remix Icons CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            boba: { 50: '#FFF8F0', 100: '#FEF0DB', 200: '#FDDCB0', 300: '#FCC885', 400: '#F5A623', 500: '#E67E22', 600: '#D35400', 700: '#A04000', 800: '#6E2C00', 900: '#1A1A2E' },
+            tea: { 50: '#F5F0EB', 100: '#E8DDD2', 200: '#D4C4AE', 300: '#B89E82', 400: '#8B5E3C', 500: '#6B4226' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * {
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    h1,
+    h2,
+    h3,
+    .font-display {
+      font-family: 'Baloo 2', cursive;
+    }
+
+    /* Animations */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all .7s cubic-bezier(.25, .46, .45, .94);
+    }
+
+    .fade-up.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .scale-up {
+      opacity: 0;
+      transform: scale(.92);
+      transition: all .8s cubic-bezier(.25, .46, .45, .94);
+    }
+
+    .scale-up.show {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Boba Button */
+    .boba-btn {
+      position: relative;
+      border: none;
+      border-radius: 45px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all .3s ease;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .boba-btn:hover {
+      animation: jello .9s both;
+      transform: translateY(-2px);
+    }
+
+    @keyframes jello {
+      0% {
+        transform: scale3d(1, 1, 1)
+      }
+
+      30% {
+        transform: scale3d(1.2, .8, 1)
+      }
+
+      40% {
+        transform: scale3d(.8, 1.2, 1)
+      }
+
+      50% {
+        transform: scale3d(1.1, .9, 1)
+      }
+
+      65% {
+        transform: scale3d(.95, 1.05, 1)
+      }
+
+      100% {
+        transform: scale3d(1, 1, 1)
+      }
+    }
+
+    .boba-btn-primary {
+      background: #E67E22;
+      color: #fff;
+      box-shadow: #F5A623 0 8px 10px inset, rgba(0, 0, 0, .15) 0 4px 8px, #D35400 0 -8px 10px inset;
+    }
+
+    .boba-btn-secondary {
+      background: #1A1A2E;
+      color: #fff;
+      box-shadow: #2a2a4e 0 8px 10px inset, rgba(0, 0, 0, .15) 0 4px 8px, #0d0d1a 0 -8px 10px inset;
+    }
+
+    .boba-btn-outline {
+      background: rgba(255, 255, 255, .95);
+      color: #1A1A2E;
+      border: 2px solid rgba(230, 126, 34, .3);
+      box-shadow: rgba(255, 255, 255, .8) 0 6px 8px inset, rgba(230, 126, 34, .1) 0 3px 6px;
+    }
+
+    /* Glassmorphism Card */
+    .glass-card {
+      background: rgba(255, 255, 255, .92);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, .4);
+      border-radius: 20px;
+      box-shadow: rgba(255, 255, 255, .6) 0 8px 12px inset, rgba(0, 0, 0, .05) 0 4px 10px;
+      transition: all .4s ease;
+    }
+
+    .glass-card:hover {
+      transform: translateY(-6px);
+      box-shadow: rgba(255, 255, 255, .7) 0 12px 16px inset, rgba(0, 0, 0, .08) 0 8px 16px;
+    }
+
+    /* Floating pearls */
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(0)
+      }
+
+      50% {
+        transform: translateY(-15px) rotate(3deg)
+      }
+    }
+
+    .float-1 {
+      animation: float 5s ease-in-out infinite;
+    }
+
+    .float-2 {
+      animation: float 7s ease-in-out infinite;
+      animation-delay: -2s;
+    }
+
+    .float-3 {
+      animation: float 6s ease-in-out infinite;
+      animation-delay: -4s;
+    }
+
+    /* Category filter */
+    .cat-btn {
+      transition: all .3s;
+    }
+
+    .cat-btn.active {
+      background: #E67E22;
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(230, 126, 34, .3);
+    }
+
+    /* Cart badge */
+    .cart-badge {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      width: 20px;
+      height: 20px;
+      background: #E67E22;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(230, 126, 34, .4);
+    }
+
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #1A1A2E;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 40px;
+      font-size: 14px;
+      font-weight: 600;
+      z-index: 1000;
+      transition: transform .4s ease;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, .2);
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Delivery partner badges */
+    .delivery-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 14px;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all .3s;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .delivery-badge:hover {
+      transform: translateY(-3px) scale(1.03);
+    }
+
+    .swiggy-badge {
+      background: #FC8019;
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(252, 128, 25, .3);
+    }
+
+    .zomato-badge {
+      background: #E23744;
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(226, 55, 68, .3);
+    }
+
+    /* Smooth scroll & prevent horizontal overflow on mobile */
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    body {
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+
+    /* Cart Overlay */
+    .cart-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .4);
+      z-index: 998;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s;
+    }
+
+    .cart-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: min(400px, 90vw);
+      height: 100vh;
+      background: #fff;
+      z-index: 999;
+      transform: translateX(100%);
+      transition: transform .4s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cart-drawer.open {
+      transform: translateX(0);
+    }
+
+    /* Menu card image */
+    .menu-card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .5s ease;
+    }
+
+    .glass-card:hover .menu-card-img {
+      transform: scale(1.08);
+    }
+
+    /* Icon styling for sections */
+    .section-icon {
+      font-size: 2.5rem;
+      line-height: 1;
+    }
+
+    .step-icon-circle {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+  </style>
+</head>
+
+<body class="bg-boba-50 text-gray-800 antialiased">
+
+  <!-- Toast -->
+  <div id="toast" class="toast"><i class="ri-check-line"></i> Added to cart!</div>
+
+  <!-- Cart Overlay -->
+  <div id="cartOverlay" class="cart-overlay" onclick="toggleCart()"></div>
+
+  <!-- Cart Drawer -->
+  <div id="cartDrawer" class="cart-drawer">
+    <div class="flex items-center justify-between p-5 border-b">
+      <h3 class="text-xl font-display font-bold text-boba-900"><i class="ri-shopping-bag-3-line text-boba-500 mr-1"></i>
+        Your Order</h3>
+      <button onclick="toggleCart()"
+        class="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition"><i
+          class="ri-close-line text-lg"></i></button>
+    </div>
+    <div id="cartItems" class="flex-1 overflow-y-auto p-5 space-y-3">
+      <p class="text-center text-gray-400 py-12">Your cart is empty</p>
+    </div>
+    <div class="border-t p-5 space-y-3">
+      <div class="flex justify-between text-lg font-bold">
+        <span>Total</span>
+        <span id="cartTotal">₹0</span>
+      </div>
+      <div class="grid grid-cols-2 gap-2">
+        <a id="swiggyCheckout" href="https://www.swiggy.com/search?query=Mr+Boba+Tea+Khammam" target="_blank"
+          class="delivery-badge swiggy-badge justify-center text-sm">
+          <i class="ri-riding-line"></i> Order on Swiggy
+        </a>
+        <a id="zomatoCheckout" href="https://www.zomato.com/khammam/mr-boba-tea" target="_blank"
+          class="delivery-badge zomato-badge justify-center text-sm">
+          <i class="ri-restaurant-line"></i> Order on Zomato
+        </a>
+      </div>
+      <a href="https://wa.me/91XXXXXXXXXX?text=Hi!%20I'd%20like%20to%20order%20from%20Mr.%20Boba%20Tea" target="_blank"
+        class="boba-btn boba-btn-primary w-full py-3 text-sm">
+        <i class="ri-whatsapp-line"></i> Order via WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <!-- ========== HEADER ========== -->
+  <header class="fixed top-0 w-full z-50 bg-boba-900/95 backdrop-blur-lg border-b border-white/5">
+    <nav class="max-w-7xl mx-auto flex items-center justify-between px-5 py-3">
+      <a href="#" class="flex items-center gap-2.5">
+        <div class="w-10 h-10 rounded-full bg-boba-500 flex items-center justify-center text-white text-lg"><i
+            class="ri-cup-line"></i></div>
+        <div>
+          <div class="text-white font-display text-lg leading-tight font-bold tracking-tight">Mr. Boba Tea</div>
+          <div class="text-boba-400 text-[10px] tracking-widest uppercase">Khammam • Est. 2026</div>
+        </div>
+      </a>
+      <div class="hidden md:flex items-center gap-6">
+        <a href="#menu" class="text-sm text-gray-400 hover:text-white transition">Menu</a>
+        <a href="#story" class="text-sm text-gray-400 hover:text-white transition">Our Story</a>
+        <a href="#order" class="text-sm text-gray-400 hover:text-white transition">Order</a>
+        <div class="w-px h-5 bg-gray-700"></div>
+        <button onclick="toggleCart()" class="relative boba-btn boba-btn-primary text-sm px-5 py-2.5">
+          <i class="ri-shopping-cart-2-line"></i> Cart
+          <span id="headerBadge" class="cart-badge hidden">0</span>
+        </button>
+      </div>
+      <button onclick="toggleCart()" class="md:hidden relative boba-btn boba-btn-primary px-4 py-2 text-sm">
+        <i class="ri-shopping-cart-2-line"></i> <span id="mobileBadge" class="cart-badge hidden">0</span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- ========== HERO ========== -->
+  <section class="relative min-h-screen flex items-center overflow-hidden pt-16">
+    <!-- BG -->
+    <div class="absolute inset-0 bg-gradient-to-br from-boba-900 via-boba-900 to-[#2a1a0e]"></div>
+    <div class="absolute top-20 right-10 w-72 h-72 bg-boba-500/10 rounded-full blur-3xl float-1"></div>
+    <div class="absolute bottom-20 left-10 w-96 h-96 bg-boba-400/8 rounded-full blur-3xl float-2"></div>
+    <!-- Floating boba pearls -->
+    <div class="absolute top-1/4 right-1/4 w-4 h-4 rounded-full bg-boba-500/40 float-1"></div>
+    <div class="absolute top-1/3 right-1/3 w-3 h-3 rounded-full bg-boba-400/30 float-2"></div>
+    <div class="absolute bottom-1/3 left-1/4 w-5 h-5 rounded-full bg-boba-500/25 float-3"></div>
+
+    <div class="relative max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-12 items-center">
+      <!-- Left -->
+      <div class="space-y-6">
+        <div
+          class="fade-up inline-flex items-center gap-2 bg-boba-500/15 border border-boba-500/20 rounded-full px-4 py-1.5 text-sm text-boba-300">
+          <span class="w-2 h-2 rounded-full bg-boba-400 animate-pulse"></span>
+          Khammam's First Bubble Tea Shop
+        </div>
+        <h1
+          class="fade-up text-5xl sm:text-6xl lg:text-7xl font-display font-extrabold text-white leading-[1.1] tracking-tight">
+          Sip the<br>
+          <span class="text-boba-400">Boba Magic</span> <i class="ri-sparkle-fill text-boba-400 text-5xl"></i>
+        </h1>
+        <p class="fade-up text-lg text-gray-400 max-w-lg leading-relaxed">
+          23 handcrafted drinks made with <strong class="text-white">real full cream milk</strong>, fresh brewed tea,
+          and premium toppings. From classic Taro to innovative Boba Lassi — your boba journey starts here.
+        </p>
+        <div class="fade-up flex flex-wrap gap-3">
+          <a href="#menu" class="boba-btn boba-btn-primary text-sm px-7 py-3.5">
+            <i class="ri-cup-line"></i> Explore Menu
+          </a>
+          <a href="#order" class="boba-btn boba-btn-outline text-sm px-7 py-3.5">
+            <i class="ri-map-pin-line"></i> Find Us
+          </a>
+        </div>
+        <!-- Delivery Partners -->
+        <div class="fade-up flex flex-wrap gap-3 pt-2">
+          <span class="text-xs text-gray-500 self-center">Also on:</span>
+          <a href="https://www.swiggy.com/search?query=Mr+Boba+Tea+Khammam" target="_blank"
+            class="delivery-badge swiggy-badge text-xs py-2 px-4"><i class="ri-riding-line"></i> Swiggy</a>
+          <a href="https://www.zomato.com/khammam/mr-boba-tea" target="_blank"
+            class="delivery-badge zomato-badge text-xs py-2 px-4"><i class="ri-restaurant-line"></i> Zomato</a>
+        </div>
+      </div>
+      <!-- Right: Hero stats -->
+      <div class="fade-up grid grid-cols-2 gap-4">
+        <div class="glass-card p-6 text-center bg-white/5 border-white/10">
+          <div class="text-boba-400 text-2xl mb-1"><i class="ri-drinks-2-line"></i></div>
+          <div class="text-4xl font-display font-extrabold text-boba-400">23</div>
+          <div class="text-sm text-gray-400 mt-1">Unique Drinks</div>
+        </div>
+        <div class="glass-card p-6 text-center bg-white/5 border-white/10">
+          <div class="text-boba-400 text-2xl mb-1"><i class="ri-bubble-chart-line"></i></div>
+          <div class="text-4xl font-display font-extrabold text-boba-400">10</div>
+          <div class="text-sm text-gray-400 mt-1">Boba Toppings</div>
+        </div>
+        <div class="glass-card p-6 text-center bg-white/5 border-white/10">
+          <div class="text-boba-400 text-2xl mb-1"><i class="ri-price-tag-3-line"></i></div>
+          <div class="text-4xl font-display font-extrabold text-boba-400">₹119</div>
+          <div class="text-sm text-gray-400 mt-1">Starting Price</div>
+        </div>
+        <div class="glass-card p-6 text-center bg-white/5 border-white/10">
+          <div class="text-white text-2xl mb-1"><i class="ri-verified-badge-line"></i></div>
+          <div class="text-4xl font-display font-extrabold text-white">100%</div>
+          <div class="text-sm text-gray-400 mt-1">Real Milk</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== WHAT IS BOBA ========== -->
+  <section class="py-20 px-6 bg-white">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-14">
+        <h2 class="fade-up text-4xl sm:text-5xl font-display font-extrabold text-boba-900">What is Bubble Tea? <i
+            class="ri-question-line text-boba-400"></i></h2>
+        <p class="fade-up text-lg text-gray-500 mt-3 max-w-2xl mx-auto">New to boba? Think of it as chai meets
+          innovation — familiar flavors, exciting new textures, Instagram-worthy presentation.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="fade-up glass-card p-8 text-center">
+          <div class="step-icon-circle bg-boba-100 text-boba-600 mx-auto mb-4"><i class="ri-leaf-line"></i></div>
+          <h3 class="text-xl font-display font-bold text-boba-900 mb-2">Tea Base</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">Fresh brewed Assam Black Tea or Jasmine Green Tea — the
+            heart of every drink. Steeped fresh every morning.</p>
+        </div>
+        <div class="fade-up glass-card p-8 text-center" style="transition-delay:.15s">
+          <div class="step-icon-circle bg-green-100 text-green-600 mx-auto mb-4"><i class="ri-palette-line"></i></div>
+          <h3 class="text-xl font-display font-bold text-boba-900 mb-2">Flavors</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">Fruit syrups, milk powders, or fresh curd create endless
+            combinations — from Mango to Taro to Thai Milk Tea.</p>
+        </div>
+        <div class="fade-up glass-card p-8 text-center" style="transition-delay:.3s">
+          <div class="step-icon-circle bg-purple-100 text-purple-600 mx-auto mb-4"><i class="ri-bubble-chart-fill"></i>
+          </div>
+          <h3 class="text-xl font-display font-bold text-boba-900 mb-2">Boba Toppings</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">Chewy tapioca pearls, popping boba that bursts with juice, or
+            fruit jellies — the "wow factor" in every sip.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== MENU ========== -->
+  <section id="menu" class="py-20 px-6 bg-boba-50">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-10">
+        <h2 class="fade-up text-4xl sm:text-5xl font-display font-extrabold text-boba-900">Our Menu <i
+            class="ri-cup-line text-boba-400"></i></h2>
+        <p class="fade-up text-lg text-gray-500 mt-3">23 drinks + 10 toppings = endless combinations</p>
+      </div>
+      <!-- Category Filters -->
+      <div class="fade-up flex flex-wrap justify-center gap-2 mb-10">
+        <button onclick="filterMenu('all')"
+          class="cat-btn active rounded-full px-5 py-2 text-sm font-semibold bg-gray-100 text-gray-600">All
+          (23)</button>
+        <button onclick="filterMenu('milk')"
+          class="cat-btn rounded-full px-5 py-2 text-sm font-semibold bg-gray-100 text-gray-600"><i
+            class="ri-goblet-line mr-1"></i>Milk Tea
+          (12)</button>
+        <button onclick="filterMenu('fruit')"
+          class="cat-btn rounded-full px-5 py-2 text-sm font-semibold bg-gray-100 text-gray-600"><i
+            class="ri-plant-line mr-1"></i>Fruit Tea
+          (6)</button>
+        <button onclick="filterMenu('lassi')"
+          class="cat-btn rounded-full px-5 py-2 text-sm font-semibold bg-gray-100 text-gray-600"><i
+            class="ri-cup-line mr-1"></i>Boba Lassi
+          (5)</button>
+      </div>
+      <!-- Menu Grid -->
+      <div id="menuGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        <!-- JS will populate -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== OUR STORY ========== -->
+  <section id="story" class="py-20 px-6 bg-white">
+    <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-14 items-center">
+      <!-- Image side -->
+      <div class="fade-up space-y-6">
+        <div class="glass-card p-2 overflow-hidden">
+          <div class="h-80 rounded-2xl bg-gradient-to-br from-boba-400 to-boba-600 flex items-center justify-center">
+            <div class="text-center text-white">
+              <div class="text-8xl mb-3"><i class="ri-cup-line"></i></div>
+              <div class="text-2xl font-display font-bold">Mr. Boba Tea</div>
+              <div class="text-sm opacity-80">Wyra Road, Khammam</div>
+            </div>
+          </div>
+        </div>
+        <div class="grid grid-cols-3 gap-3">
+          <div class="glass-card p-4 text-center">
+            <div class="text-2xl font-display font-bold text-boba-500">12</div>
+            <div class="text-xs text-gray-500">Milk Teas</div>
+          </div>
+          <div class="glass-card p-4 text-center">
+            <div class="text-2xl font-display font-bold text-green-500">6</div>
+            <div class="text-xs text-gray-500">Fruit Teas</div>
+          </div>
+          <div class="glass-card p-4 text-center">
+            <div class="text-2xl font-display font-bold text-purple-500">5</div>
+            <div class="text-xs text-gray-500">Boba Lassis</div>
+          </div>
+        </div>
+      </div>
+      <!-- Story side -->
+      <div class="space-y-6">
+        <p class="fade-up text-xs text-boba-500 tracking-[.3em] uppercase font-bold">Our Story</p>
+        <h2 class="fade-up text-4xl sm:text-5xl font-display font-extrabold text-boba-900 leading-tight">
+          From Hyderabad cravings to<br><span class="text-boba-500">Khammam's first boba</span>
+        </h2>
+        <div class="fade-up space-y-4 text-gray-600 leading-relaxed">
+          <p>
+            It started with a simple frustration. Every trip back home to Khammam from the city meant leaving behind the
+            bubble tea shops we'd grown to love. Hyderabad already had 50+ boba shops. Khammam had zero.
+          </p>
+          <p>
+            We saw the same story everywhere — Gen Z and millennials in Tier 2 cities craving the same experiences their
+            friends in metros posted about on Instagram. Khammam had Domino's and KFC, but nothing for the bubble tea
+            generation. The demand was inevitable — we just decided to be first.
+          </p>
+          <p>
+            We spent months researching suppliers, testing recipes, and perfecting our formulas. We chose <strong
+              class="text-boba-900">real full cream milk</strong> over the powdered creamers most chains use — because
+            once you taste the difference, there's no going back. We sourced premium powders from Tea Planet in
+            Hyderabad, specialty flavors from QQS in Delhi, and authentic matcha from Zawaa.
+          </p>
+          <p>
+            Then came our secret weapon: <strong class="text-boba-900">Boba Lassi</strong> — a fusion of India's beloved
+            lassi with the fun, chewy toppings of bubble tea. It's the gateway drink for anyone who's never tried boba
+            before. Familiar format, surprising twist.
+          </p>
+          <p>
+            Mr. Boba Tea isn't just a shop — it's Khammam's first taste of a global phenomenon, made with local love and
+            real ingredients. Welcome to the boba revolution. <i class="ri-cup-fill text-boba-500"></i>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== HOW WE MAKE IT ========== -->
+  <section class="py-20 px-6 bg-boba-900 text-white">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-14">
+        <h2 class="fade-up text-4xl sm:text-5xl font-display font-extrabold">How We Make It <i
+            class="ri-sparkle-fill text-boba-400"></i></h2>
+        <p class="fade-up text-lg text-gray-400 mt-3">Fresh. Simple. Delicious. Every cup in under 3 minutes.</p>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
+        <div class="fade-up text-center">
+          <div class="step-icon-circle bg-boba-500/20 text-boba-400 mx-auto mb-3"><i class="ri-leaf-line"></i></div>
+          <div class="font-display font-bold text-lg">Brew</div>
+          <p class="text-sm text-gray-400 mt-1">Fresh batch of Assam black or Jasmine green tea every morning</p>
+        </div>
+        <div class="fade-up text-center" style="transition-delay:.1s">
+          <div class="step-icon-circle bg-boba-500/20 text-boba-400 mx-auto mb-3"><i class="ri-palette-line"></i></div>
+          <div class="font-display font-bold text-lg">Flavor</div>
+          <p class="text-sm text-gray-400 mt-1">Add premium powder for milk tea, syrup for fruit tea, or pulp for lassi
+          </p>
+        </div>
+        <div class="fade-up text-center" style="transition-delay:.2s">
+          <div class="step-icon-circle bg-boba-500/20 text-boba-400 mx-auto mb-3"><i class="ri-typhoon-line"></i></div>
+          <div class="font-display font-bold text-lg">Shake</div>
+          <p class="text-sm text-gray-400 mt-1">Shaken with ice for bubble tea, blended for lassi — always frothy</p>
+        </div>
+        <div class="fade-up text-center" style="transition-delay:.3s">
+          <div class="step-icon-circle bg-boba-500/20 text-boba-400 mx-auto mb-3"><i class="ri-bubble-chart-fill"></i>
+          </div>
+          <div class="font-display font-bold text-lg">Top</div>
+          <p class="text-sm text-gray-400 mt-1">Tapioca pearls, popping boba, or jelly — your choice of toppings</p>
+        </div>
+        <div class="fade-up text-center" style="transition-delay:.4s">
+          <div class="step-icon-circle bg-boba-500/20 text-boba-400 mx-auto mb-3"><i class="ri-goblet-fill"></i></div>
+          <div class="font-display font-bold text-lg">Seal</div>
+          <p class="text-sm text-gray-400 mt-1">Cup sealed with our signature film, fat straw, ready to enjoy!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ORDER / LOCATION ========== -->
+  <section id="order" class="py-20 px-6 bg-white">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-14">
+        <h2 class="fade-up text-4xl sm:text-5xl font-display font-extrabold text-boba-900">Order Now <i
+            class="ri-map-pin-fill text-boba-500"></i></h2>
+        <p class="fade-up text-lg text-gray-500 mt-3">Visit us on Wyra Road or order through your favorite delivery app
+        </p>
+      </div>
+      <div class="grid lg:grid-cols-2 gap-8">
+        <!-- Map card -->
+        <div class="fade-up glass-card overflow-hidden">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d60930.33872805046!2d80.1128!3d17.2473!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a3449e1e7c67f5d%3A0x869c5df96ac4dd3d!2sKhammam%2C%20Telangana!5e0!3m2!1sen!2sin!4v1"
+            class="w-full h-72" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+          <div class="p-6 space-y-3">
+            <h3 class="font-display text-xl font-bold text-boba-900">Mr. Boba Tea — Wyra Road</h3>
+            <p class="text-sm text-gray-600"><i class="ri-map-pin-line text-boba-500 mr-1"></i> Wyra Road, Khammam,
+              Telangana 507002</p>
+            <p class="text-sm text-gray-600"><i class="ri-time-line text-boba-500 mr-1"></i> 10:00 AM — 10:00 PM (All
+              days)</p>
+            <p class="text-sm text-gray-600"><i class="ri-phone-line text-boba-500 mr-1"></i> +91 XXXXX XXXXX</p>
+          </div>
+        </div>
+        <!-- Delivery options -->
+        <div class="space-y-5">
+          <div class="fade-up glass-card p-6">
+            <h3 class="font-display text-lg font-bold text-boba-900 mb-4"><i
+                class="ri-rocket-2-line text-boba-500 mr-1"></i> Delivery Partners</h3>
+            <div class="space-y-3">
+              <a href="https://www.swiggy.com/search?query=Mr+Boba+Tea+Khammam" target="_blank"
+                class="delivery-badge swiggy-badge w-full justify-center text-base py-4">
+                <i class="ri-riding-line text-xl"></i> Order on Swiggy
+                <span class="text-xs opacity-80 ml-2">→ Opens Swiggy App</span>
+              </a>
+              <a href="https://www.zomato.com/khammam/mr-boba-tea" target="_blank"
+                class="delivery-badge zomato-badge w-full justify-center text-base py-4">
+                <i class="ri-restaurant-line text-xl"></i> Order on Zomato
+                <span class="text-xs opacity-80 ml-2">→ Opens Zomato App</span>
+              </a>
+              <a href="https://wa.me/91XXXXXXXXXX?text=Hi!%20I'd%20like%20to%20order%20from%20Mr.%20Boba%20Tea"
+                target="_blank" class="delivery-badge w-full justify-center text-base py-4 bg-green-500 text-white"
+                style="box-shadow:0 4px 12px rgba(34,197,94,.3)">
+                <i class="ri-whatsapp-line text-xl"></i> WhatsApp Order
+                <span class="text-xs opacity-80 ml-2">→ Opens Chat</span>
+              </a>
+            </div>
+          </div>
+          <div class="fade-up glass-card p-6">
+            <h3 class="font-display text-lg font-bold text-boba-900 mb-3"><i
+                class="ri-lightbulb-line text-boba-500 mr-1"></i> Good to Know</h3>
+            <div class="space-y-2 text-sm text-gray-600">
+              <p><i class="ri-check-line text-green-500 mr-1"></i> Made with <strong>real full cream milk</strong> — not
+                powder</p>
+              <p><i class="ri-check-line text-green-500 mr-1"></i> All toppings cooked fresh — tapioca pearls every 4
+                hours</p>
+              <p><i class="ri-check-line text-green-500 mr-1"></i> Sugar adjustable — Regular, Less, or No Sugar</p>
+              <p><i class="ri-check-line text-green-500 mr-1"></i> Customizable toppings on every drink (+₹20–₹30 each)
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="bg-boba-900 text-white py-14 px-6">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div>
+          <div class="flex items-center gap-2.5 mb-4">
+            <div class="w-9 h-9 rounded-full bg-boba-500 flex items-center justify-center text-white"><i
+                class="ri-cup-line"></i></div>
+            <div>
+              <div class="font-display text-lg font-bold">Mr. Boba Tea</div>
+              <div class="text-[10px] text-gray-500 tracking-widest">KHAMMAM • EST. 2026</div>
+            </div>
+          </div>
+          <p class="text-sm text-gray-400 leading-relaxed">Premium bubble tea made with real full cream milk, fresh
+            brewed tea, and exciting flavors. Khammam's first boba shop.</p>
+        </div>
+        <div>
+          <h4 class="font-display font-bold mb-4">Menu</h4>
+          <ul class="space-y-2 text-sm text-gray-400">
+            <li><i class="ri-goblet-line mr-1 text-boba-500"></i>Flavored Milk Tea (12)</li>
+            <li><i class="ri-plant-line mr-1 text-green-500"></i>Fruit Tea (6)</li>
+            <li><i class="ri-cup-line mr-1 text-purple-500"></i>Boba Lassi (5)</li>
+            <li><i class="ri-bubble-chart-line mr-1 text-boba-400"></i>Toppings (10)</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-display font-bold mb-4">Visit</h4>
+          <ul class="space-y-2 text-sm text-gray-400">
+            <li><i class="ri-map-pin-line mr-1 text-boba-500"></i> Wyra Road, Khammam</li>
+            <li><i class="ri-time-line mr-1 text-boba-500"></i> 10 AM — 10 PM</li>
+            <li><i class="ri-phone-line mr-1 text-boba-500"></i> +91 XXXXX XXXXX</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-display font-bold mb-4">Order Online</h4>
+          <div class="space-y-2">
+            <a href="https://www.swiggy.com/search?query=Mr+Boba+Tea+Khammam" target="_blank"
+              class="delivery-badge swiggy-badge text-xs py-2 px-3"><i class="ri-riding-line mr-1"></i> Swiggy</a>
+            <a href="https://www.zomato.com/khammam/mr-boba-tea" target="_blank"
+              class="delivery-badge zomato-badge text-xs py-2 px-3"><i class="ri-restaurant-line mr-1"></i> Zomato</a>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 mt-10 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <p class="text-sm text-gray-500">© 2026 Mr. Boba Tea. All rights reserved.</p>
+        <div class="flex gap-4 text-gray-500">
+          <a href="#" class="hover:text-white transition"><i class="ri-instagram-line text-lg"></i></a>
+          <a href="#" class="hover:text-white transition"><i class="ri-facebook-circle-line text-lg"></i></a>
+          <a href="#" class="hover:text-white transition"><i class="ri-whatsapp-line text-lg"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ========== MENU DATA ==========
+    const drinks = [
+      // Milk Tea (12) — real boba tea images from Unsplash
+      { name: "Matcha Milk Tea", cat: "milk", img: "https://images.unsplash.com/photo-1515823064-d6e0c04616a7?w=400&h=400&fit=crop&q=80", tag: "Popular", price: { s: 149, r: 199 } },
+      { name: "Mango Milk Tea", cat: "milk", img: "https://images.unsplash.com/photo-1558857563-b371033873b8?w=400&h=400&fit=crop&q=80", tag: "Bestseller", price: { s: 149, r: 199 } },
+      { name: "Strawberry Milk Tea", cat: "milk", img: "https://images.unsplash.com/photo-1625865802899-f5421c3f7ee6?w=400&h=400&fit=crop&q=80", tag: "", price: { s: 149, r: 199 } },
+      { name: "Butterscotch Milk Tea", cat: "milk", img: "https://images.unsplash.com/photo-1571934811356-5cc061b6821f?w=400&h=400&fit=crop&q=80", tag: "Unique", price: { s: 149, r: 199 } },
+      { name: "Papaya Milk Tea", cat: "milk", img: "https://images.unsplash.com/photo-1525803377221-2e11a0e10518?w=400&h=400&fit=crop&q=80", tag: "", price: { s: 149, r: 199 } },
+      { name: "Honeydew Milk Tea", cat: "milk", img: "https://images.unsplash.com/photo-1541696490-8744a5dc0228?w=400&h=400&fit=crop&q=80", tag: "Refreshing", price: { s: 149, r: 199 } },
+      { name: "Pina Colada Milk Tea", cat: "milk", img: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&h=400&fit=crop&q=80", tag: "Tropical", price: { s: 149, r: 199 } },
+      { name: "Coffee Mocha Milk Tea", cat: "milk", img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=400&h=400&fit=crop&q=80", tag: "", price: { s: 149, r: 199 } },
+      { name: "Blueberry Milk Tea", cat: "milk", img: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=400&h=400&fit=crop&q=80", tag: "", price: { s: 149, r: 199 } },
+      { name: "Chocolate Milk Tea", cat: "milk", img: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=400&h=400&fit=crop&q=80", tag: "Kids Love", price: { s: 149, r: 199 } },
+      { name: "Taro Milk Tea", cat: "milk", img: "https://images.unsplash.com/photo-1638176066666-ffb2f013c7dd?w=400&h=400&fit=crop&q=80", tag: "Classic", price: { s: 149, r: 199 } },
+      { name: "Thai Milk Tea", cat: "milk", img: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=400&fit=crop&q=80", tag: "New!", price: { s: 149, r: 199 } },
+      // Fruit Tea (6)
+      { name: "Honeydew Fruit Tea", cat: "fruit", img: "https://images.unsplash.com/photo-1499638673689-79a0b5115d87?w=400&h=400&fit=crop&q=80", tag: "Light", price: { s: 119, r: 169 } },
+      { name: "Orange Kumquat Tea", cat: "fruit", img: "https://images.unsplash.com/photo-1544252890-c3e95e867ad3?w=400&h=400&fit=crop&q=80", tag: "Citrus", price: { s: 119, r: 169 } },
+      { name: "Dragon Fruit Tea", cat: "fruit", img: "https://images.unsplash.com/photo-1527661591475-527312dd65f5?w=400&h=400&fit=crop&q=80", tag: "Instagram", price: { s: 119, r: 169 } },
+      { name: "Mango Fruit Tea", cat: "fruit", img: "https://images.unsplash.com/photo-1546173159-315724a31696?w=400&h=400&fit=crop&q=80", tag: "", price: { s: 119, r: 169 } },
+      { name: "Passion Fruit Tea", cat: "fruit", img: "https://images.unsplash.com/photo-1534353473418-4cfa6c56fd38?w=400&h=400&fit=crop&q=80", tag: "Tangy", price: { s: 119, r: 169 } },
+      { name: "Strawberry Fruit Tea", cat: "fruit", img: "https://images.unsplash.com/photo-1497534446932-c925b458314e?w=400&h=400&fit=crop&q=80", tag: "", price: { s: 119, r: 169 } },
+      // Lassi (5)
+      { name: "Plain Boba Lassi", cat: "lassi", img: "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&h=400&fit=crop&q=80", tag: "Gateway", price: { o: 129 } },
+      { name: "Pistachio Boba Lassi", cat: "lassi", img: "https://images.unsplash.com/photo-1553787499-6f9133860278?w=400&h=400&fit=crop&q=80", tag: "Premium", price: { o: 129 } },
+      { name: "Banana Boba Lassi", cat: "lassi", img: "https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?w=400&h=400&fit=crop&q=80", tag: "", price: { o: 129 } },
+      { name: "Rose Boba Lassi", cat: "lassi", img: "https://images.unsplash.com/photo-1595981267686-a5a0e1a5f8e1?w=400&h=400&fit=crop&q=80", tag: "Unique", price: { o: 129 } },
+      { name: "Mango Boba Lassi", cat: "lassi", img: "https://images.unsplash.com/photo-1546549095-4f92bec03127?w=400&h=400&fit=crop&q=80", tag: "Bestseller", price: { o: 129 } },
+    ];
+
+    const catColors = { milk: 'bg-boba-100 text-boba-700', fruit: 'bg-green-100 text-green-700', lassi: 'bg-purple-100 text-purple-700' };
+    const catLabels = { milk: 'Milk Tea', fruit: 'Fruit Tea', lassi: 'Boba Lassi' };
+    const catIcons = { milk: 'ri-goblet-line', fruit: 'ri-plant-line', lassi: 'ri-cup-line' };
+
+    // ========== CART ==========
+    let cart = [];
+
+    function addToCart(idx, size) {
+      const d = drinks[idx];
+      const price = size === 'o' ? d.price.o : size === 's' ? d.price.s : d.price.r;
+      const sizeLabel = size === 'o' ? '' : size === 's' ? ' (S)' : ' (R)';
+      cart.push({ name: d.name + sizeLabel, price, idx, size });
+      updateCartUI();
+      showToast(d.name + ' added!');
+    }
+
+    function removeFromCart(i) {
+      cart.splice(i, 1);
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const count = cart.length;
+      const total = cart.reduce((s, c) => s + c.price, 0);
+      // Badges
+      ['headerBadge', 'mobileBadge'].forEach(id => {
+        const el = document.getElementById(id);
+        if (count > 0) { el.classList.remove('hidden'); el.textContent = count; }
+        else { el.classList.add('hidden'); }
+      });
+      // Cart items
+      const container = document.getElementById('cartItems');
+      if (count === 0) {
+        container.innerHTML = '<p class="text-center text-gray-400 py-12">Your cart is empty</p>';
+      } else {
+        container.innerHTML = cart.map((c, i) => `
+      <div class="flex items-center justify-between bg-boba-50 rounded-xl p-3">
+        <div>
+          <div class="font-semibold text-sm text-boba-900">${c.name}</div>
+          <div class="text-boba-500 font-bold text-sm">₹${c.price}</div>
+        </div>
+        <button onclick="removeFromCart(${i})" class="w-7 h-7 rounded-full bg-red-100 text-red-500 flex items-center justify-center text-xs hover:bg-red-200 transition"><i class="ri-close-line"></i></button>
+      </div>
+    `).join('');
+      }
+      document.getElementById('cartTotal').textContent = '₹' + total;
+    }
+
+    function toggleCart() {
+      document.getElementById('cartOverlay').classList.toggle('open');
+      document.getElementById('cartDrawer').classList.toggle('open');
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.innerHTML = '<i class="ri-check-line mr-1"></i> ' + msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2000);
+    }
+
+    // ========== RENDER MENU ==========
+    function renderMenu(filter) {
+      const grid = document.getElementById('menuGrid');
+      const filtered = filter === 'all' ? drinks : drinks.filter(d => d.cat === filter);
+      grid.innerHTML = filtered.map((d, i) => {
+        const realIdx = drinks.indexOf(d);
+        const isLassi = d.cat === 'lassi';
+        const tagHtml = d.tag ? `<span class="absolute top-3 right-3 text-xs font-bold px-2.5 py-1 rounded-full ${catColors[d.cat]}">${d.tag}</span>` : '';
+        const sizeButtons = isLassi
+          ? `<button onclick="addToCart(${realIdx},'o')" class="boba-btn boba-btn-primary w-full py-2.5 text-sm"><i class="ri-add-line mr-1"></i>Add ₹${d.price.o}</button>`
+          : `<div class="grid grid-cols-2 gap-2">
+           <button onclick="addToCart(${realIdx},'s')" class="boba-btn boba-btn-outline py-2 text-xs">Small ₹${d.price.s}</button>
+           <button onclick="addToCart(${realIdx},'r')" class="boba-btn boba-btn-primary py-2 text-xs">Regular ₹${d.price.r}</button>
+         </div>`;
+        return `
+      <div class="scale-up glass-card overflow-hidden" style="transition-delay:${(i % 8) * 60}ms">
+        <div class="relative h-44 overflow-hidden">
+          <img src="${d.img}" alt="${d.name}" class="menu-card-img" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.add('bg-gradient-to-br','${d.cat === 'milk' ? 'from-orange-50' : d.cat === 'fruit' ? 'from-green-50' : 'from-purple-50'}','${d.cat === 'milk' ? 'to-amber-100' : d.cat === 'fruit' ? 'to-emerald-100' : 'to-violet-100'}','flex','items-center','justify-center');this.parentElement.innerHTML+='<i class=\\'${catIcons[d.cat]} text-5xl opacity-30\\'></i>';">
+          ${tagHtml}
+          <span class="absolute bottom-3 left-3 text-[10px] font-bold px-2 py-0.5 rounded-full ${catColors[d.cat]} backdrop-blur-sm"><i class="${catIcons[d.cat]} mr-0.5"></i>${catLabels[d.cat]}</span>
+        </div>
+        <div class="p-4 space-y-3">
+          <h3 class="font-display font-bold text-boba-900 text-base leading-tight">${d.name}</h3>
+          ${sizeButtons}
+        </div>
+      </div>`;
+      }).join('');
+      // Re-observe
+      document.querySelectorAll('.scale-up').forEach(el => observer.observe(el));
+    }
+
+    function filterMenu(cat) {
+      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      renderMenu(cat);
+    }
+
+    // ========== SCROLL ANIMATIONS ==========
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-up,.scale-up').forEach(el => observer.observe(el));
+
+    // Initial render
+    renderMenu('all');
+  </script>
+</body>
+
+</html>
